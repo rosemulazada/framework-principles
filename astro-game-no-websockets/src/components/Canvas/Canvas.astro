@@ -6,8 +6,8 @@ interface Props {
 const { props } = Astro;
 ---
 
-<canvas-element>
-    <canvas data-element="canvas" is="canvas-element" {...props}></canvas>
+<canvas-element {...props}>
+    <canvas data-element="canvas" is="canvas-element"></canvas>
     <button data-element="button">
         <span class="button_top">Save your drawing!</span>
     </button>
@@ -16,6 +16,10 @@ const { props } = Astro;
 <script src="./Canvas.client.ts"></script>
 
 <style>
+    canvas-element {
+        display: block;
+    }
+
     canvas {
         border: red 2px solid;
     }

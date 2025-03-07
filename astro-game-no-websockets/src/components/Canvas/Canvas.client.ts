@@ -10,7 +10,7 @@ export default class Canvas extends HTMLElement {
     }
 
     connectedCallback() {
-        console.log(this.canvas);
+        console.log(this);
         let context = this.canvas.getContext('2d')!;
         context.lineWidth = 5;
         context.lineCap = 'round';
@@ -48,7 +48,13 @@ export default class Canvas extends HTMLElement {
 
     saveDrawing() {
         let saved = this.canvas.toDataURL();
-        console.log('CONTEXT:', saved);
+        var values = JSON.parse(localStorage.getItem('canvas'));
+        if (values === null) {
+            values = [];
+        }
+
+        values.push(saved);
+        localStorage.setItem('canvas', JSON.stringify(values));
     }
 }
 
