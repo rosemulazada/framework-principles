@@ -1,12 +1,14 @@
 export default class Canvas extends HTMLElement {
     private canvas: HTMLCanvasElement;
     private button: HTMLButtonElement;
+    private ws: WebSocket;
 
     constructor() {
         super();
 
         this.canvas = this.querySelector('[data-element="canvas"]')!;
         this.button = this.querySelector('[data-element="button"]')!;
+        this.ws = new WebSocket('ws://localhost:3000');
     }
 
     connectedCallback() {
@@ -49,6 +51,7 @@ export default class Canvas extends HTMLElement {
     saveDrawing() {
         let saved = this.canvas.toDataURL();
         var values = JSON.parse(localStorage.getItem('canvas')!);
+        this.ws.send(values);
         if (values === null) {
             values = [];
         } else if (values.length > 2) {
